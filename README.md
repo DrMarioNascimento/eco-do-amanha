@@ -13,7 +13,7 @@ Mário César Nascimento estuda **Game Design e desenvolvimento de jogos**. Este
 
 Projeto MOSAICO em desenvolvimento, com endereço oficial em **https://eco-do-amanha.dragongames.dev.br** (GitHub Pages).
 Separado do repositório `Dragon` em 14/10/2026 — regra "um jogo = um repositório = um subdomínio"
-(ver `documentos/ORGANIZACAO-DRAGON.md` no Dragon).
+(ver [organização dos jogos](https://github.com/DrMarioNascimento/Dragon/blob/main/documentos/ORGANIZACAO-DRAGON.md)).
 
 | Endereço | Conteúdo | Origem no Dragon |
 |---|---|---|
