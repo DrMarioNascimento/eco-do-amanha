@@ -1,6 +1,8 @@
-# MOSAICO / Dragon — Licença Proprietária — Todos os Direitos Reservados
+# O Eco do Amanhã · MOSAICO — Licença Proprietária — Todos os Direitos Reservados
 
 Copyright © 2026 Mário César Nascimento e Osana Melo Nascimento. Todos os direitos reservados.
+
+Este arquivo acompanha especificamente **O Eco do Amanhã**, separado do projeto de origem Dragon/MOSAICO. As referências à coleção de jogos descrevem sua origem; a aplicação neste repositório limita-se aos componentes originais aqui presentes. A separação não altera a autoria conjunta nem as condições de terceiros.
 
 ## 1. Titularidade declarada
 
@@ -87,7 +89,7 @@ A autorização é pessoal, limitada, revogável, intransferível e não sublice
 
 6.1. Bibliotecas, fontes, serviços, imagens, sons ou outros componentes de terceiros permanecem regidos por suas próprias licenças e termos e sob os direitos de seus próprios titulares. Esta licença não concede direitos pertencentes a terceiros nem modifica obrigações impostas por eles.
 
-6.2. Sem caráter exaustivo, o repositório utiliza, entre outros:
+6.2. O projeto de origem utiliza os componentes abaixo. Nesta cópia, aplicam-se os créditos dos componentes efetivamente presentes, acompanhados de suas licenças:
 
 - **three.js** e seus módulos auxiliares (GLTFLoader, GLTFExporter, OrbitControls), em cópias locais, sob a Licença MIT, cujo texto acompanha as cópias (`THREE-LICENSE.txt`);
 - **Firebase JavaScript SDK** (Google), carregado por CDN;
@@ -224,7 +226,7 @@ The authorization is personal, limited, revocable, non-transferable and non-subl
 
 6.1. Third-party libraries, fonts, services, images, sounds or other components remain governed by their own licenses and terms and subject to the rights of their respective owners. This license grants no rights belonging to third parties and does not modify obligations imposed by them.
 
-6.2. Without being exhaustive, the repository uses, among others:
+6.2. The source project uses the components below. In this separated repository, credits apply to the components actually present, together with their own licenses:
 
 - **three.js** and its auxiliary modules (GLTFLoader, GLTFExporter, OrbitControls), as local copies, under the MIT License, whose text accompanies the copies (`THREE-LICENSE.txt`);
 - the **Firebase JavaScript SDK** (Google), loaded from a CDN;
@@ -279,7 +281,7 @@ Esta nota registra a revisão da documentação. Não altera as cláusulas anter
 O catálogo também apresenta jogos mantidos em outros repositórios:
 
 - [Mosaico Card](https://github.com/DrMarioNascimento/Mosaico-Card): autoria declarada de Mário César Nascimento e Osana Melo Nascimento; licença proprietária do projeto.
-- [Eita!](https://eita-quiz.web.app/): autoria e titularidade declaradas de Mário César Nascimento; licença de uso educacional restrito no repositório próprio, cujo acesso segue suas permissões.
+- [Eita!](https://eita.dragongames.dev.br/): autoria e titularidade declaradas de Mário César Nascimento; licença de uso educacional restrito no repositório próprio, cujo acesso segue suas permissões.
 
 Os materiais visuais desses jogos usados no catálogo têm origem registrada em
 [brand/jogos/README.md](https://github.com/DrMarioNascimento/Dragon/blob/main/brand/jogos/README.md). Esta nota identifica os projetos
