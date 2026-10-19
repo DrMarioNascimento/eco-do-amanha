@@ -268,14 +268,6 @@ Requests for authorization of any use not expressly permitted should be addresse
 
 All rights not expressly granted remain reserved to the rights holders.
 
----
-
-## Nota editorial — 10 de outubro de 2026
-
-Esta revisão mantém a autoria conjunta de Mário César Nascimento e Osana Melo Nascimento e a distinção entre os percursos de jogo, protótipos e componentes de terceiros.
-
-Esta nota registra a revisão da documentação. Não altera as cláusulas anteriores, os titulares, as permissões, as restrições nem as licenças próprias de terceiros.
-
 ## Referências do catálogo — nota documental de 12 de outubro de 2026
 
 O catálogo também apresenta jogos mantidos em outros repositórios:
@@ -312,3 +304,9 @@ A seção 3.1 foi atualizada para refletir os testes internos, sem participaçã
 Este arquivo acompanha os componentes Dragon/MOSAICO transferidos para o repositório [eco-do-amanha](https://github.com/DrMarioNascimento/eco-do-amanha), com autoria de **Mário César Nascimento e Osana Melo Nascimento**. A separação técnica não transfere titularidade nem amplia permissões. As referências a pastas do Dragon descrevem o projeto de origem; componentes efetivamente presentes conservam seus créditos e licenças próprios.
 
 Endereço oficial deste jogo: https://eco-do-amanha.dragongames.dev.br/
+
+## Revisão documental — 19 de outubro de 2026
+
+O escopo deste repositório é O Eco do Amanhã e sua experiência O Impostor. As referências ao Dragon identificam a origem do projeto e não transferem a manutenção ou os direitos a outros repositórios.
+
+Esta revisão atualiza a identificação e o escopo documental. Preserva os titulares, as permissões e as restrições existentes. Não substitui nem restringe as licenças próprias de componentes de terceiros.

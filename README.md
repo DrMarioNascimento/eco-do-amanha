@@ -1,5 +1,9 @@
 # O Eco do Amanhã · Dragon Games
 
+## Situação atual — 19 de outubro de 2026
+
+O Eco do Amanhã é mantido neste repositório, com entrada em `index.html` e experiência O Impostor em `o-impostor/`. O portal Dragon apresenta o projeto e preserva material da organização anterior. Antes de publicar alterações, execute `npm test` e confira os caminhos das mídias locais. A disponibilidade de páginas de apresentação não abre a participação externa.
+
 ## Desenvolvimento e acesso
 
 Os jogos estão em diferentes etapas de desenvolvimento, teste e aperfeiçoamento e ainda não foram lançados ao público. Nesta fase, os testes são realizados internamente, sem participação externa.
