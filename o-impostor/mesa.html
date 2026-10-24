@@ -1671,7 +1671,7 @@ var PECA_DEF = {
         }, det: { f1: ['FICHA', 'Um lote cancelado por falta de assinatura. Nada na margem.'], f3: ['FICHA', 'Um lote devolvido à família.'],
           violeta: ['A FICHA COM TINTA VIOLETA', 'O lote ' + P.lote + ', de uma antiga funcionária da torre. Contribuição registrada como destruída. Na margem, camadas sobrepostas em tinta violeta. Os quatro primeiros números são o lote; os dois últimos, a prateleira.', 'fim'] } }
     ] },
-  c3: { cap: 3, nome: 'O cofre de índices e a balança', sub: 'Arquivo Frio e Depósito', ico: '🔐', topo: 'Cofre de índices · balança de precisão',
+  c3: { cap: 3, nome: 'O cofre de índices e a balança', sub: 'Arquivo Frio e Depósito', ico: '<img src="../assets/icons/locks/closed-white.png" alt="" aria-hidden="true" style="display:inline-block;width:2.1em;height:2.1em;max-width:none;object-fit:contain;vertical-align:middle;flex-shrink:0">', topo: 'Cofre de índices · balança de precisão',
     cartao: function () { return { ico: '⚖️', nome: 'A peça com ponte', desc: 'Das duas peças azuis, a do distribuidor pesa ' + P.peso + ' g a mais e tem uma ponte de cobre feita à mão. A mídia retirada às ' + P.hora_fc + ' não tem ponte.' }; },
     etapas: [
       { aviso: 'O cofre abre com o lote e a prateleira.', svg: function () {
@@ -1754,7 +1754,7 @@ var PECA_DEF = {
         }, det: { token: ['O TOKEN', 'Código da gravação, operação assinada e presença lacrada precisam coincidir. Só um posto ficou vazio durante o ato.', 'fim'] } }
     ] },
   c8: { cap: 8, nome: 'O quadro de cortiça e o painel de alavancas', sub: 'Sala de Crise, 05h20', ico: '📌', topo: 'Quadro de cortiça · painel de publicação',
-    cartao: function () { return { ico: '🔒', nome: 'Publicação travada às 05h52', desc: 'Primeiro isolar a redundância, depois revogar a fila; o circuito da maca fica fora da sequência.' }; },
+    cartao: function () { return { ico: '<img src="../assets/icons/locks/closed-white.png" alt="" aria-hidden="true" style="display:inline-block;width:2.1em;height:2.1em;max-width:none;object-fit:contain;vertical-align:middle;flex-shrink:0">', nome: 'Publicação travada às 05h52', desc: 'Primeiro isolar a redundância, depois revogar a fila; o circuito da maca fica fora da sequência.' }; },
     etapas: [
       { aviso: 'Os cartões que a mesa conquistou viram cadeias. Ligue as três.', svg: function (st) {
           var v = st.vistos || {}, s = caixa(20, 40, 320, 330, '#5a3d22', '#d49a6a', 6);
@@ -1925,7 +1925,7 @@ var PECA_3D = (function () {
   };
 })();
 var PECAS = [{ id: 'maquete', cap: 0, nome: 'A maquete da torre', sub: 'Em 3D: os andares abrem e viram sala', ico: '🏙️', aberta: true }, { id: 'planta', cap: 0, nome: 'A planta da torre', sub: 'Do −1 ao +14, com o 12B', ico: '🗼', aberta: true }]
-  .concat([1, 2, 3, 4, 5, 6, 7, 8].map(function (c) { return { id: 'c' + c, cap: c, nome: 'Peça do Capítulo ' + c, sub: 'Abre quando a história chegar nela', ico: '🔒' }; }));
+  .concat([1, 2, 3, 4, 5, 6, 7, 8].map(function (c) { return { id: 'c' + c, cap: c, nome: 'Peça do Capítulo ' + c, sub: 'Abre quando a história chegar nela', ico: '<img src="../assets/icons/locks/closed-white.png" alt="" aria-hidden="true" style="display:inline-block;width:2.1em;height:2.1em;max-width:none;object-fit:contain;vertical-align:middle;flex-shrink:0">' }; }));
 function pintarPecas() {
   $('#gradeRA').innerHTML = PECAS.map(function (p) {
     var tr = !p.aberta, st = ESTADO_PECA[p.id];
