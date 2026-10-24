@@ -1,6 +1,14 @@
 # O Eco do Amanhã · Dragon Games
 
-## Situação atual — 19 de outubro de 2026
+## Disponibilidade e novidades — 24 de outubro de 2026
+
+**O Eco do Amanhã permanece em testes fechados.** A página de apresentação não constitui liberação geral da atividade. A condução e a participação seguem os controles e convites do projeto. A abertura pública do Eita! e dos recursos educacionais do portfólio não altera este estágio nem as condições de uso desta obra.
+
+Mantida a autoria conjunta de **Mário César Nascimento e Osana Melo Nascimento**.
+
+[Ver todos os recursos públicos](https://www.drmarionascimento.com.br/#acesso-publico). O acesso respeita [LICENSE.md](LICENSE.md).
+
+## Contexto técnico — registro de 19 de outubro de 2026
 
 O Eco do Amanhã é mantido neste repositório, com entrada em `index.html` e experiência O Impostor em `o-impostor/`. O portal Dragon apresenta o projeto e preserva material da organização anterior. Antes de publicar alterações, execute `npm test` e confira os caminhos das mídias locais. A disponibilidade de páginas de apresentação não abre a participação externa.
 

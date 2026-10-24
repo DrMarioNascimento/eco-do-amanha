@@ -310,3 +310,13 @@ Endereço oficial deste jogo: https://eco-do-amanha.dragongames.dev.br/
 O escopo deste repositório é O Eco do Amanhã e sua experiência O Impostor. As referências ao Dragon identificam a origem do projeto e não transferem a manutenção ou os direitos a outros repositórios.
 
 Esta revisão atualiza a identificação e o escopo documental. Preserva os titulares, as permissões e as restrições existentes. Não substitui nem restringe as licenças próprias de componentes de terceiros.
+
+## Escopo e disponibilidade — 24 de outubro de 2026
+
+O projeto permanece em testes fechados, com seus controles de acesso. A atualização do catálogo de recursos públicos não o libera nem altera a autoria conjunta de Mário César Nascimento e Osana Melo Nascimento.
+
+Esta revisão documenta o escopo e a disponibilidade atuais; preserva os titulares, as permissões e as restrições existentes, inclusive os direitos e licenças próprios de terceiros. Acesso público não equivale a licença de código aberto.
+
+Inventário de acessos: https://www.drmarionascimento.com.br/#acesso-publico
+
+**English — scope and availability, October 24, 2026:** The project remains in closed testing. The public catalog update does not release it or change joint authorship. Existing ownership, grants, restrictions and third-party terms are preserved; public access does not mean open source.
