@@ -25,7 +25,11 @@
      (audioSession 'ambient') e só nasce depois do primeiro toque na tela.
 
    op: { limites:[[x,y,z],[x,y,z]], reduzido, host, forca (1 = tempestade;
-   0,6 = chuva de narrativa), som (padrão true) } */
+   0,6 = chuva de narrativa), som (padrão true),
+   interno (true = cômodo: sem chuva nem nevoeiro na peça; só o clarão que
+   entra pela janela e o trovão), janela:[x,y,z] (de onde vem o clarão),
+   aoClarao(brilho 0–1, a cada quadro: para janelas e luzes reagirem) }
+   O objeto devolvido também expõe vento(t), a mesma rajada da chuva. */
 (function(global){
  'use strict';
  var AUDIO=null;
@@ -66,7 +70,7 @@
   if(op.limites)box=new T.Box3(new T.Vector3().fromArray(op.limites[0]),new T.Vector3().fromArray(op.limites[1]));
   else box.applyMatrix4(inv);
   var size=box.getSize(new T.Vector3()),center=box.getCenter(new T.Vector3()),L=Math.max(size.x,size.y,size.z,.1);
-  var forca=op.forca===undefined?1:op.forca,comSom=op.som!==false;
+  var forca=op.forca===undefined?1:op.forca,comSom=op.som!==false,interno=!!op.interno,aoClarao=op.aoClarao||null,brilhoAgora=0;
   var grupo=new T.Group();grupo.name='clima_local';grupo.userData.naoExportar=true;raiz.add(grupo);
   var reduzido=op.reduzido===undefined?(global.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches):op.reduzido;
   var ligado=!reduzido,tempo=0,seed=251026,dummy=new T.Object3D(),drops=[];
@@ -78,14 +82,14 @@
 
   /* ---------- chuva ---------- */
   var N=Math.max(60,Math.round(420*forca));
-  var chuva=new T.InstancedMesh(new T.BoxGeometry(L*.0011,L*.032,L*.0011),new T.MeshBasicMaterial({color:0xc9dcea,transparent:true,opacity:.42,depthWrite:false}),N);
-  chuva.instanceMatrix.setUsage(T.DynamicDrawUsage);chuva.frustumCulled=false;grupo.add(chuva);
+  var chuva=new T.InstancedMesh(new T.BoxGeometry(L*.0007,L*.03,L*.0007),new T.MeshBasicMaterial({color:0xc9dcea,transparent:true,opacity:.38,depthWrite:false}),N);
+  chuva.instanceMatrix.setUsage(T.DynamicDrawUsage);chuva.frustumCulled=false;grupo.add(chuva);chuva.visible=!interno;
   var mx=size.x*.12,mz=size.z*.12;
   for(var i=0;i<N;i++)drops.push({x:box.min.x-mx+(size.x+2*mx)*rnd(),z:box.min.z-mz+(size.z+2*mz)*rnd(),pouso:chao,fase:rnd(),speed:.85+rnd()*.45,volta:-1});
   /* respingos: anéis que se abrem onde a gota pousa */
   var NS=Math.round(56*forca),resp=[],ri=0;
-  var anel=new T.InstancedMesh(new T.RingGeometry(L*.002,L*.0038,10).rotateX(-Math.PI/2),new T.MeshBasicMaterial({color:0xdbe8f2,transparent:true,opacity:.5,depthWrite:false,side:T.DoubleSide}),NS);
-  anel.instanceMatrix.setUsage(T.DynamicDrawUsage);anel.frustumCulled=false;grupo.add(anel);
+  var anel=new T.InstancedMesh(new T.RingGeometry(L*.0016,L*.0026,10).rotateX(-Math.PI/2),new T.MeshBasicMaterial({color:0xb9ccd8,transparent:true,opacity:.32,depthWrite:false,side:T.DoubleSide}),NS);
+  anel.instanceMatrix.setUsage(T.DynamicDrawUsage);anel.frustumCulled=false;grupo.add(anel);anel.visible=!interno;
   for(i=0;i<NS;i++)resp.push({x:0,y:-1e3,z:0,t:9});
 
   /* onde a gota pousa: um raio por gota, só contra as peças sob ela */
@@ -117,11 +121,13 @@
    var baixoBanco=i<NM*.75,s=new T.Sprite(mats[i%3]),e=L*(baixoBanco?.34+rnd()*.26:.18+rnd()*.14);
    s.scale.set(e*1.6,e*(baixoBanco?.55:.8),1);
    s.userData={x:box.min.x-mx+(size.x+2*mx)*rnd(),z:box.min.z-mz+(size.z+2*mz)*rnd(),y:baixoBanco?chao+size.y*(.04+rnd()*.16):chao+size.y*(.25+rnd()*.35),f:rnd()*6.28,v:.6+rnd()*.8};
-   s.renderOrder=3;grupo.add(s);mist.push(s);
+   s.renderOrder=3;s.visible=!interno;grupo.add(s);mist.push(s);
   }
 
   /* ---------- relâmpago ---------- */
   var luz=new T.PointLight(0xc4dcff,0,0,1);luz.position.set(center.x,topo,center.z);grupo.add(luz);
+  /* no cômodo, o clarão vem de onde está a janela */
+  if(op.janela)luz.position.fromArray(op.janela);
   var ceu=new T.HemisphereLight(0xb8d0ff,0x1a2230,0);grupo.add(ceu);
   var matRaio=new T.MeshBasicMaterial({color:0xf2f7ff,transparent:true,opacity:1,depthWrite:false,blending:T.AdditiveBlending});
   var matHalo=new T.MeshBasicMaterial({color:0x6f9cff,transparent:true,opacity:.28,depthWrite:false,blending:T.AdditiveBlending});
@@ -161,22 +167,22 @@
   /* ---------- botão ---------- */
   var button=document.createElement('button');button.type='button';button.className='ra-clima-toggle';button.style.cssText='min-height:44px;padding:8px 12px;border-radius:12px;border:1px solid #9baebc;background:linear-gradient(#374653,#162531);box-shadow:inset 0 1px 2px #ffffff50,0 3px 8px #0006;color:#edf5f8;font:600 12px system-ui;cursor:pointer';
   var host=op.host||document.querySelector('.tools,.acoes')||document.body;host.appendChild(button);
-  function pintar(){grupo.visible=ligado;luz.intensity=0;ceu.intensity=0;if(!ligado){limparRaio();descarga=null;volumeChuva(0);}
+  function pintar(){grupo.visible=ligado;luz.intensity=0;ceu.intensity=0;if(!ligado){limparRaio();descarga=null;volumeChuva(0);brilhoAgora=0;if(aoClarao)aoClarao(0);}
    button.textContent=ligado?'Clima: ligado':'Clima: desligado';button.setAttribute('aria-pressed',String(ligado));}
   button.title='Chuva, nevoeiro, relâmpagos e trovões. Não interfere nas pistas.';
   button.onclick=function(){ligado=!ligado;destravar();pintar();};pintar();
 
   function update(dt){
    ultimo=performance.now();
-   if(!ligado||document.hidden){volumeChuva(0);return;}
+   if(!ligado||document.hidden){volumeChuva(0);if(brilhoAgora&&aoClarao)aoClarao(0);brilhoAgora=0;return;}
    dt=Math.max(0,Math.min(.05,dt||0));tempo+=dt;var w=vento(tempo);
    /* pouso das gotas: as peças visíveis a cada 2 s, duas gotas por quadro
       (cada raio contra a casa custa ~0,26 ms no computador; doze passavam de 3 ms; a volta inteira leva uns 3,5 s) */
-   if(tempo-alvosEm>2){coletar();alvosEm=tempo;}
-   for(var k=0;k<2;k++){pousar(drops[cursor]);cursor=(cursor+1)%N;}
+   if(!interno){if(tempo-alvosEm>2){coletar();alvosEm=tempo;}
+   for(var k=0;k<2;k++){pousar(drops[cursor]);cursor=(cursor+1)%N;}}
    /* a inclinação do vento é a mesma para todas as gotas no quadro: a rotação
       vai uma vez, e por gota só se escreve a posição na matriz */
-   var ang=-Math.atan(w*.35),cs=Math.cos(ang),sn=Math.sin(ang),M=chuva.instanceMatrix.array;
+   if(!interno){var ang=-Math.atan(w*.35),cs=Math.cos(ang),sn=Math.sin(ang),M=chuva.instanceMatrix.array;
    for(var i=0;i<N;i++){
     var d=drops[i],cai=topo-d.pouso,c=tempo*d.speed*(size.y*2.2/Math.max(cai,1e-3))*.5+d.fase,volta=Math.floor(c),u=c-volta;
     if(volta!==d.volta){if(d.volta>=0){var sp=resp[ri];sp.x=d.x+w*cai*.35;sp.y=d.pouso+L*.001;sp.z=d.z;sp.t=0;ri=(ri+1)%NS;}d.volta=volta;}
@@ -192,16 +198,16 @@
    anel.instanceMatrix.needsUpdate=true;
    for(i=0;i<mist.length;i++){var m=mist[i],u2=m.userData;
     var dx=((u2.x-box.min.x+mx+tempo*w*L*.03*u2.v)%(size.x+2*mx)+(size.x+2*mx))%(size.x+2*mx);
-    m.position.set(box.min.x-mx+dx,u2.y+Math.sin(tempo*.3+u2.f)*size.y*.02,u2.z+Math.sin(tempo*.11+u2.f)*size.z*.03);}
+    m.position.set(box.min.x-mx+dx,u2.y+Math.sin(tempo*.3+u2.f)*size.y*.02,u2.z+Math.sin(tempo*.11+u2.f)*size.z*.03);}}
    /* relâmpagos e clarões distantes */
    var brilho=0;
-   if(descarga){descarga.t+=dt;brilho=descarga.segura?1:pulso(descarga.t);if(raio){matRaio.opacity=Math.min(1,brilho*1.2);matHalo.opacity=.28*brilho;raio.visible=brilho>.05;}if(descarga.t>.6&&!descarga.segura){descarga=null;limparRaio();proxima=tempo+9+rnd()*14;}}
-   else if(tempo>proxima)cair();
+   if(descarga){descarga.t+=dt;brilho=descarga.segura?1:pulso(descarga.t);if(raio){matRaio.opacity=Math.min(1,brilho*1.2);matHalo.opacity=.28*brilho;raio.visible=brilho>.05;}if(descarga&&descarga.t>.6&&!descarga.segura){descarga=null;limparRaio();proxima=tempo+9+rnd()*14;}}
+   else if(tempo>proxima){if(interno){descarga={t:0,dist:.8+rnd()*2.2};trovoes.push({em:tempo+descarga.dist*.9,dist:descarga.dist});}else cair();}
    if(clarao){clarao.t+=dt;brilho=Math.max(brilho,.35*pulso(clarao.t*1.3));if(clarao.t>.5)clarao=null;}
    else if(tempo>proxClarao&&!descarga){clarao={t:0};proxClarao=tempo+5+rnd()*8;trovoes.push({em:tempo+2.6+rnd()*1.5,dist:3+rnd()});}
-   luz.intensity=2.4*forca*brilho;ceu.intensity=.9*forca*brilho;
+   luz.intensity=2.4*forca*brilho;ceu.intensity=.9*forca*brilho;brilhoAgora=brilho;if(aoClarao)aoClarao(brilho);
    /* som */
-   volumeChuva(A&&comSom?.11*forca*(.8+.4*w):0);
+   volumeChuva(A&&comSom?(interno?.05:.11)*forca*(.8+.4*w):0);
    for(i=trovoes.length-1;i>=0;i--)if(tempo>=trovoes[i].em){if(A&&comSom&&A.ctx.state==='running')trovao(A,trovoes[i].dist,forca);trovoes.splice(i,1);}
   }
   function dispose(){
@@ -214,9 +220,10 @@
   }
   update(0);
   var inst={update:update,dispose:dispose,grupo:grupo,
-   estado:function(){return {ligado:ligado,gotas:drops.length,tempo:tempo,respingos:NS,nevoeiro:mist.length,raios:nRaios,som:!!(A&&A.ctx.state==='running')};},
+   vento:vento,
+   estado:function(){return {ligado:ligado,brilho:brilhoAgora,interno:interno,gotas:interno?0:drops.length,tempo:tempo,respingos:NS,nevoeiro:mist.length,raios:nRaios,som:!!(A&&A.ctx.state==='running')};},
    /* para conferência: força uma descarga agora (segura=true a mantém acesa para a foto) */
-   relampago:function(segura){if(ligado){cair();descarga.segura=!!segura;}}};
+   relampago:function(segura){if(!ligado)return;if(interno)descarga={t:0,dist:1};else cair();descarga.segura=!!segura;}};
   /* para conferência no navegador: a lista das tempestades vivas */
   (global.__raClimas=global.__raClimas||[]).push(inst);
   return inst;
