@@ -47,3 +47,7 @@ Testes: `npm test` (integridade dos caminhos).
 Criação de **Mário César Nascimento e Osana Melo Nascimento**. As condições do projeto de origem Dragon/MOSAICO acompanham esta separação em [LICENSE.md](LICENSE.md); as licenças e os créditos de terceiros permanecem nos respectivos arquivos.
 
 Portal Dragon Games: https://dragongames.dev.br/
+
+## Realidade aumentada — 25/10/2026
+
+Revisadas as animações das cenas de RA, com relevo nos textos dinâmicos e clima nas cenas externas pertinentes. Consulte [decisões, compatibilidade e verificações](RA-VOLUME-MOVIMENTO.md).
