@@ -263,7 +263,22 @@
            não tem o "Google Play Services para RA" certificado, ou a pessoa recusou
            instalá-lo. Antes, o jogo parava aí. Agora cai no mesmo motor do iPhone
            (8th Wall), que rastreia a mesa pela câmera, sem depender do Google. */
-        if (s.webxr) return entrarWebXR().catch(function (erro) {
+        /* E quando o Chrome, em vez de falhar, abre a Play Store para instalar o
+           serviço — que recusa o aparelho ("só disponível para seus outros
+           dispositivos", visto num Xiaomi do Mario) —, o pedido fica parado lá.
+           Se a página some durante a abertura, o aparelho é marcado como sem o
+           serviço; na volta, segue pelo 8th Wall, e das próximas vezes nem tenta. */
+        var semServico = false; try { semServico = localStorage.getItem('ra:sem-arcore') === '1'; } catch (e) {}
+        if (s.webxr && !(semServico && s.slam)) return new Promise(function (ok, falha) {
+          var saiu = false, fim = false;
+          function aoVoltar() {
+            if (document.hidden) { saiu = true; try { localStorage.setItem('ra:sem-arcore', '1'); } catch (e) {} return; }
+            if (saiu && !fim) { fim = true; document.removeEventListener('visibilitychange', aoVoltar); geracao++; falha(Error('loja')); }
+          }
+          document.addEventListener('visibilitychange', aoVoltar);
+          entrarWebXR().then(function (r) { fim = true; document.removeEventListener('visibilitychange', aoVoltar); ok(r); },
+            function (e) { if (fim) return; fim = true; document.removeEventListener('visibilitychange', aoVoltar); falha(e); });
+        }).catch(function (erro) {
           if (!s.slam || (erro && erro.message === 'cancelado')) throw erro;
           return sensores.then(function (permitido) { return entrarSlam(permitido); });
         });
