@@ -258,7 +258,15 @@
     function entrar() {
       var sensores = pedirSensores();
       return suporte().then(function (s) {
-        if (s.webxr) return entrarWebXR();
+        /* 25/10/2026 (Mario: "as RA não estão rodando em celular Xiaomi"). Em muitos
+           Android o Chrome diz que há RA, mas a sessão falha ao abrir: o aparelho
+           não tem o "Google Play Services para RA" certificado, ou a pessoa recusou
+           instalá-lo. Antes, o jogo parava aí. Agora cai no mesmo motor do iPhone
+           (8th Wall), que rastreia a mesa pela câmera, sem depender do Google. */
+        if (s.webxr) return entrarWebXR().catch(function (erro) {
+          if (!s.slam || (erro && erro.message === 'cancelado')) throw erro;
+          return sensores.then(function (permitido) { return entrarSlam(permitido); });
+        });
         if (s.slam) return sensores.then(function (permitido) {
           if (permitido === false && ehIOS()) throw Object.assign(Error('Os sensores de movimento foram recusados.'), { name: 'NotAllowedError' });
           return entrarSlam(permitido);
