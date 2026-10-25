@@ -38,7 +38,7 @@ Na Casa da Costa, o teste de regressão do relevo, da deformação da superfíci
 
 A auditoria identificou e corrigiu uma lacuna do relevo em malhas com vários materiais, como a etiqueta do rádio do farol. Cada grupo de faces com texto agora recebe seu próprio relevo, com remoção ao limpar a textura. Os arquivos carregados receberam nova versão de cache. Na Casa da Costa, os módulos compartilhados da mesa e das atividades sensoriais voltaram a usar o mesmo carimbo de versão.
 
-## Tempestade, vida e obras — 26/10/2026
+## Tempestade, vida e obras — 25/10/2026 (tarde)
 
 Pedido do Mario: movimento e ação onde couber, ligados à história; atenção à maquete d'A Casa (trovões, nevoeiro, chuva) e ao farol; as obras dele no jogo; a assistência de primeira vez conferida.
 

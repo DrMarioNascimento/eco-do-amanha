@@ -1,6 +1,6 @@
 /* Primeira vez numa tela de RA: o que é cada coisa na tela.
 
-   26/10/2026 (Mario: "a assistência que desenvolvemos, evolução da tela,
+   25/10/2026 (Mario: "a assistência que desenvolvemos, evolução da tela,
    auxílio no começo para os jogadores entenderem tela e jogabilidade…
    verifique se está implantado de fato; senão inclua"). As maquetes e peças
    de RA não tinham nada na primeira visita: a ajuda morava num botão de

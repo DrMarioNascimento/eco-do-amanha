@@ -1,6 +1,6 @@
 /* Obras de Mário César Nascimento projetadas na cena (three.js r128).
 
-   26/10/2026 (Mario: "esses anexos eu considero obras minhas e queria inserir
+   25/10/2026 (Mario: "esses anexos eu considero obras minhas e queria inserir
    … nem que seja uma projeção em algum laboratório… quero ver no jogo"). Três
    peças, a mesma figura em três suportes: a MOEDA da IA (a médica de jaleco,
    metade anatomia, com o chip IA), o BUSTO de anatomia sintética e o CORPO com

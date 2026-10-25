@@ -543,7 +543,7 @@
     var t = tempo || performance.now(), dt = Math.min(0.05, (t - (antes || t)) / 1000); antes = t; relogio += dt;
     if (ra) ra.atualizar(dt, quadroXR);
     if(climaRA){climaRA.grupo.visible=climaRA.estado().ligado&&!dentro;if(!dentro)climaRA.update(dt);}
-    /* 26/10/2026: a torre na tempestade e as obras na imprensa (torre-viva.js) */
+    /* 25/10/2026: a torre na tempestade e as obras na imprensa (torre-viva.js) */
     if(vivaT)vivaT.update(dt,dentro,climaRA?climaRA.vento(relogio):.2);
     var k = Math.min(1, dt * 5);
     Object.keys(andares).forEach(function (q) {
@@ -575,7 +575,7 @@
       if (dentro && opcoes.entrar !== dentro) sairDoAndar();
       if (!ra || ra.estado().modo !== 'ra') { if (!dentro) enquadrar(); }
       renderer.setAnimationLoop(desenhar);
-      /* 26/10/2026: na primeira vez neste aparelho, o que é cada coisa na tela (guia-ra.js) */
+      /* 25/10/2026: na primeira vez neste aparelho, o que é cada coisa na tela (guia-ra.js) */
       if (global.GuiaRA) GuiaRA.mostrar('eco-maquete', [
         { alvo: '#maqPalco', txt: 'Arraste para girar a torre; com dois dedos, aproxime. Um toque num andar o puxa para fora, como uma gaveta.' },
         { alvo: '#maqRA', txt: 'Pôr na mesa abre a câmera e coloca a torre sobre a sua mesa.' },

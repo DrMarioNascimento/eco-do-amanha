@@ -1,6 +1,6 @@
 /* Clima local à maquete: acompanha a âncora nos motores WebXR e 8th Wall.
 
-   26/10/2026 (Mario: "a maquete d'A Casa merece atenção: trovões, nevoeiro e
+   25/10/2026 (Mario: "a maquete d'A Casa merece atenção: trovões, nevoeiro e
    chuva. Idem farol."). A versão de 25/10 era tímida: 72 riscos finos, oito
    véus a 17% e um traço de relâmpago por 0,13 s a cada 23 s, sem som — e as
    gotas atravessavam o telhado. Esta é uma tempestade, com a MESMA interface

@@ -1,6 +1,6 @@
 /* A Torre de Continuidade na noite da tempestade (three.js r128).
 
-   26/10/2026 (Mario: "movimento, ação onde couber, o máximo… que tenha
+   25/10/2026 (Mario: "movimento, ação onde couber, o máximo… que tenha
    relação com a história"; e as obras dele "no Echo… nem que seja uma
    projeção"). O que a história sustenta, e só isso:
    - a torre "perde o reflexo antes da energia": a cada raio, frisos, letreiro
