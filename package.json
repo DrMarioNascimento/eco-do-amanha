@@ -5,6 +5,6 @@
   "description": "O Eco do Amanhã — jogo MOSAICO da Dragon Games (O Impostor).",
   "type": "module",
   "scripts": {
-    "test": "node --test tests/caminhos.test.mjs"
+    "test": "node --test tests/*.test.mjs"
   }
 }
