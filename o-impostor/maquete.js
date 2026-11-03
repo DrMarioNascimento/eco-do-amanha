@@ -31,7 +31,7 @@
  var climaRA=null,vivaT=null;
   var BASE = (function () { var s = document.currentScript && document.currentScript.src; return s ? s.replace(/[^/]*$/, '') : ''; })();
   var LIB = BASE + 'lib/';
-  var SCRIPTS = [LIB + 'three.min.js', BASE + 'ra-textos-volume.js?v=volume-20261025-auditoria', BASE + 'ra-clima.js?v=tempestade-20261026', BASE + 'obra-projecao.js?v=tempestade-20261026', BASE + 'torre-viva.js?v=tempestade-20261026', BASE + 'guia-ra.js?v=guia-20261026', LIB + 'GLTFLoader.js', LIB + 'meshopt_decoder.js', LIB + 'OrbitControls.js', LIB + 'ac-ra.js?v=wifi-20261102', LIB + 'ac-maquete-ra.js'];
+  var SCRIPTS = [LIB + 'three.min.js', BASE + 'ra-textos-volume.js?v=volume-20261025-auditoria', BASE + 'ra-clima.js?v=tempestade-20261026', BASE + 'obra-projecao.js?v=tempestade-20261026', BASE + 'torre-viva.js?v=tempestade-20261026', BASE + 'guia-ra.js?v=assistencia-20261103', LIB + 'GLTFLoader.js', LIB + 'meshopt_decoder.js', LIB + 'OrbitControls.js', LIB + 'ac-ra.js?v=wifi-20261102', LIB + 'ac-maquete-ra.js'];
   var MODELO = BASE + 'modelos/torre.glb';
 
   /* metros do modelo → "1 de pegada" do motor de RA (o lote tem ~97 m: ~1 de pegada, ≈ 42 cm na mesa) */
@@ -581,7 +581,7 @@
       /* 25/10/2026: na primeira vez neste aparelho, o que é cada coisa na tela (guia-ra.js) */
       if (global.GuiaRA) GuiaRA.mostrar('eco-maquete', [
         { alvo: '#maqPalco', txt: 'Arraste para girar a torre; com dois dedos, aproxime. Um toque num andar o puxa para fora, como uma gaveta.' },
-        { alvo: '#maqRA', txt: 'Pôr na mesa abre a câmera e coloca a torre sobre a sua mesa.' },
+        { alvo: '#maqRA', semAlvoOk: true, txt: 'Use Pôr na mesa, quando disponível, e autorize a câmera. Procure uma superfície plana com luz e mova o celular devagar. Sem câmera, continue explorando em 3D na tela.' },
         { alvo: '.ra-clima-toggle', txt: 'O clima liga e desliga a chuva e os relâmpagos. Ele não muda nada no caso.' },
         { alvo: '#maqSair', txt: 'Por aqui você volta para a mesa do jogo.' }
       ]);
@@ -590,6 +590,7 @@
     }).catch(function (e) { el.querySelector('#maqCarregando').textContent = 'A maquete não abriu: ' + ((e && e.message) || e); throw e; });
   }
   function fechar() {
+    if (global.GuiaRA) global.GuiaRA.fechar();
     ativo = false; var sai = ra && ra.estado().modo === 'ra' ? ra.sair() : Promise.resolve();
     return sai.then(function () { if (renderer) renderer.setAnimationLoop(null); if (el) el.hidden = true; });
   }

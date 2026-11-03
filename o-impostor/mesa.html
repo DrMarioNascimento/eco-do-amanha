@@ -1107,7 +1107,7 @@ body.in-ar .tela-ra.com3d{background:transparent}
 .planta-topo b,.tela-ra.com3d .planta-topo b{text-shadow:0 1px 2px #000,0 0 8px #000c}
 .planta-topo span,.tela-ra.com3d .planta-topo span{text-shadow:0 1px 2px #000,var(--term-glow)}
 </style>
-</head>
+<script src="../assistencia-telas.js?v=assistencia-20261103"></script></head>
 <body>
 <div class="scene" aria-hidden="true"></div>
 <div class="rain" aria-hidden="true"></div>
@@ -1330,7 +1330,7 @@ function digitar(el, html, vel, depois) {
   var passoN = Math.max(1, Math.round(txt.length / 700));
   (function passo() {
     if (parar) return; i += passoN + (txt.charCodeAt(i) === 32 ? 1 : 0); el.textContent = txt.slice(0, i);
-    if (el.closest && el.closest('#chatGrupo')) { var r = $('#chatGrupo'); r.scrollTop = r.scrollHeight; }
+    if (el.closest && el.closest('#chatGrupo')) { var r = $('#chatGrupo'); if(r.scrollHeight-r.clientHeight-r.scrollTop<80)r.scrollTop=r.scrollHeight; }
     if (i >= txt.length) { fim(); return; } setTimeout(passo, (vel || 18) + Math.random() * 10);
   })();
   return fim;
@@ -1391,11 +1391,15 @@ function bolha(m) {
   var anexo = m.anexo ? '<div class="anexo"' + (m.img ? ' data-ver="' + m.img + '" data-nome="' + m.anexo + '" style="cursor:pointer"' : '') + '>📎 ' + m.anexo + (m.img ? ' · ver' : '') + '</div>' : '';
   return '<div class="msg' + (eu ? ' eu' : '') + '"><div class="bolha' + (m.marca ? ' marcada' : '') + '" data-mid="' + idMsg(m) + '">' + quem + (m.txt || '') + anexo + '<span class="hora">' + (m.h || hora()) + '</span></div></div>';
 }
-function pintarGrupo() {
+
+// Só acompanha novas mensagens se a pessoa já estava perto do fim.
+function posicaoLeitura(el,chave){var mudou=chave!==undefined&&el.dataset.conversaAnterior!==String(chave);if(chave!==undefined)el.dataset.conversaAnterior=String(chave);return {top:el.scrollTop,fim:mudou||el.scrollHeight-el.clientHeight-el.scrollTop<80};}
+function restaurarLeitura(el,p){el.scrollTop=p.fim?el.scrollHeight:p.top;}
+function pintarGrupo() {var posLeitura=posicaoLeitura($('#chatGrupo'));
   $('#grupoTopo').innerHTML = 'Torre de Continuidade · <b>' + NUMEROS.length + ' números</b>';
   var el = $('#chatGrupo'); el.innerHTML = grupo.map(bolha).join('');
   grupo.forEach(function (m) { if (m.sis && !m.digitada) { m.digitada = true; var alvo = el.querySelector('[data-mid="' + m._id + '"]'); if (alvo) { var hh = m.hh ? '<span class="hh">' + m.hh + '</span>' : ''; digitar(alvo, hh + m.sis, Math.max(5, Math.min(16, 4000 / Math.max(1, limpo(m.sis).length)))); } } });
-  el.scrollTop = el.scrollHeight;
+  restaurarLeitura(el,posLeitura);
 }
 function postar(m) { grupo.push(m); if (aba === 'grupo') pintarGrupo(); else { glow('grupo', true); if (m.sis) m.digitada = true; } }
 function narrar(html, hh, cls) { postar({ sis: html, hh: hh, cls: cls }); }
@@ -1425,7 +1429,7 @@ function abrirPriv(f) {
   if (!privadas[f]) privadas[f] = { nao: 0, msgs: [] }; abertaPriv = f; privadas[f].nao = 0; $('#listaPriv').hidden = true; $('#convPriv').hidden = false;
   $('#convNome').innerHTML = nomeDe(f); $('#convAvatar').innerHTML = SIL; $('#convNome').style.color = CORES[f]; pintarConv(); pintarListaPriv();
 }
-function pintarConv() { var el = $('#chatPriv'); el.innerHTML = privadas[abertaPriv].msgs.map(bolha).join('') || '<div class="dia">CONVERSA PRIVADA</div>'; el.scrollTop = el.scrollHeight; }
+function pintarConv() {var posLeitura=posicaoLeitura($('#chatPriv'),abertaPriv); var el = $('#chatPriv'); el.innerHTML = privadas[abertaPriv].msgs.map(bolha).join('') || '<div class="dia">CONVERSA PRIVADA</div>'; restaurarLeitura(el,posLeitura); }
 $('#voltarPriv').onclick = function () { abertaPriv = null; $('#convPriv').hidden = true; $('#listaPriv').hidden = false; pintarListaPriv(); };
 function chegaPrivada(id, txt) {
   if (!sistema(id)) return; var f = SLOT_DE[id]; if (!privadas[f]) privadas[f] = { nao: 0, msgs: [] };
@@ -2852,7 +2856,7 @@ var cab=document.getElementById('convAvatar'),nome=document.getElementById('conv
 var obs=new MutationObserver(varrer);obs.observe(document.body,{childList:true,subtree:true});varrer()})();
 </script>
 <script src="travas.js?v=20261011a"></script>
-<script src="maquete.js?v=wifi-20261102"></script>
+<script src="maquete.js?v=assistencia-20261103"></script>
 <script src="objeto.js?v=volume-20261025-auditoria"></script>
 <script src="peca3d.js?v=volume-20261025-auditoria"></script>
 <!-- 15/10/2026: entrada padronizada no solo — nome + Bem-vindo/Bem-vinda/Tanto faz, como na sala do grupo -->
@@ -2873,5 +2877,5 @@ var obs=new MutationObserver(varrer);obs.observe(document.body,{childList:true,s
   window.mosaicoNomeSolo=function(){return inp.value.trim().replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
 })();
 </script>
-</body>
+<script defer src="../caminho-ra.js?v=assistencia-20261103" data-guia="impostor" data-jogo="eco"></script></body>
 </html>
